@@ -41,9 +41,14 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        $project = Project::findOrFail($id);
+        $project->update($request->all());
+        return response()->json([
+            'success' => true,
+            'data' => $project,
+        ], 200);
     }
 
     /**
